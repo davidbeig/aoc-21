@@ -5,6 +5,7 @@ class Control {
   static UP = 'up'
   static DOWN = 'down'
   #position = {}
+  #aim = 0
 
   constructor(commands) {
     this.commands = commands
@@ -18,14 +19,14 @@ class Control {
 
       switch (instruction) {
         case Control.FORWARD:
-          this.#moveForward(movement)
+          this.#moveForward(parseInt(movement))
           break;
         case Control.UP:
-          this.#moveUp(movement)
+          this.#moveUp(parseInt(movement))
           break;
 
         case Control.DOWN:
-          this.#moveDown(movement)
+          this.#moveDown(parseInt(movement))
           break
 
         default:
@@ -36,15 +37,16 @@ class Control {
   }
 
   #moveForward(movement) {
-    this.#position.x += parseInt(movement)
+    this.#position.x += movement
+    this.#position.y += this.#aim * movement
   }
 
   #moveDown(movement) {
-    this.#position.y += parseInt(movement)
+    this.#aim += movement
   }
 
   #moveUp(movement) {
-    this.#position.y -= parseInt(movement)
+    this.#aim -= movement
   }
 }
 
